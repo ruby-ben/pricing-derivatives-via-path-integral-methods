@@ -7,33 +7,33 @@ The key idea is to simulate all possible paths of the underlying asset under the
 
 ### 1) Core Equation
 
-Under the **risk-neutral measure**, an asset price \( S_t \) follows:
+Under the **risk-neutral measure**, an asset price $ S_t $ follows:
 
-\[
+$$
 dS_t = \mu(S_t, t) \, dt + \sigma(S_t, t) \, dW_t
-\]
+$$
 
-- \( \mu(S_t, t) \) — **drift term** (expected rate of return under risk-neutral measure)
-- \( \sigma(S_t, t) \) — **volatility term** (can be constant or state-dependent)
-- \( W_t \) — standard Brownian motion
+- $ \mu(S_t, t) $ — **drift term** (expected rate of return under risk-neutral measure)
+- $ \sigma(S_t, t) $ — **volatility term** (can be constant or state-dependent)
+- $ W_t $ — standard Brownian motion
 
 ---
 
 ### 2) Feynman–Kac Formula
 
-For a payoff function \( \text{Payoff}(S_T) \) at maturity \( T \):
+For a payoff function $ \text{Payoff}(S_T) $ at maturity $ T $:
 
-\[
+$$
 V(S_0, 0) = e^{-rT} \, \mathbb{E} \big[ \text{Payoff}(S_T) \big]
-\]
+$$
 
 Using **path integrals**, this expectation becomes:
 
-\[
+$$
 V(S_0, 0) = e^{-rT} \int \mathcal{D}S(t) \, \text{Payoff}(S_T) \, P[S(t)]
-\]
+$$
 
-where \( P[S(t)] \) is the path probability density derived from the SDE.
+where $ P[S(t)] $ is the path probability density derived from the SDE.
 
 ---
 
@@ -43,7 +43,7 @@ In this implementation:
 
 - The **only part you need to change** for a new model is the **SDE definition**.
 - Once the SDE is set, the solver:
-  1. Generates many possible paths for \( S_t \) over time.
+  1. Generates many possible paths for $ S_t $ over time.
   2. Computes the payoff at maturity for each path.
   3. Averages and discounts to get the option price.
 
@@ -54,17 +54,13 @@ In this implementation:
 Under Black–Scholes assumptions:
 
 $$
-\[
 dS_t = r S_t \, dt + \sigma S_t \, dW_t
-\]
 $$
 
 Payoff for a European call option:
 
 $$
-\[
 \text{Payoff}(S_T) = \max(S_T - K, 0)
-\]
 $$
 ---
 
@@ -78,7 +74,7 @@ for each path p in N_paths:
         S += mu(S, t) * dt + sigma(S, t) * sqrt(dt) * random_gaussian()
     payoff_sum += payoff(S)
 option_price = exp(-r * T) * payoff_sum / N_paths
-
+```
 
 6️⃣ How to Adapt for Different Models
 
