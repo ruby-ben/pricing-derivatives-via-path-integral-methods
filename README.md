@@ -27,7 +27,7 @@ $$
 - $W_t$ — standard Brownian motion
 
 
-### 2.2) Feynman–Kac Formula
+#### 2.2) Feynman–Kac Formula
 
 For a payoff function $\text{Payoff}(S_T)$ at maturity $T$:
 
