@@ -21,7 +21,7 @@ $$
 
 ### 2) Feynman–Kac Formula
 
-For a payoff function $\text{Payoff}(S_T)$ at maturity $ T $:
+For a payoff function $\text{Payoff}(S_T)$ at maturity $T$:
 
 $$
 V(S_0, 0) = e^{-rT} \, \mathbb{E} \big[ \text{Payoff}(S_T) \big]
@@ -65,7 +65,7 @@ $$
 
 ---
 
-## 5️⃣ Algorithm Outline
+### 5) Algorithm Outline
 
 **Pseudocode:**
 ```cpp
@@ -77,7 +77,7 @@ for each path p in N_paths:
 option_price = exp(-r * T) * payoff_sum / N_paths
 ```
 
-6️⃣ How to Adapt for Different Models
+### 6) How to Adapt for Different Models
 
 To switch models, only change:
 - mu(S, t) — the drift term
@@ -90,14 +90,14 @@ For example:
 - Barrier option → payoff set to 0 if barrier breached
 
 
-7️⃣ Advantages
+### 7) Advantages
 - Modular: swap in any SDE
 - Supports exotic payoffs
 - Numerical: works without closed-form solutions
 - Physics-inspired: path integrals allow a direct connection between finance and quantum mechanics-style methods
 
 
-8️⃣ References
+### 8) References
 - Black, F. & Scholes, M. (1973) The Pricing of Options and Corporate Liabilities. Journal of Political Economy.
 - Feynman, R. (1948) Space-Time Approach to Non-Relativistic Quantum Mechanics.
 - Wilmott, P., Howison, S., Dewynne, J. (1995) The Mathematics of Financial Derivatives
