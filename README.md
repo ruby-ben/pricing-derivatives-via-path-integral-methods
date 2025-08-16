@@ -1,12 +1,21 @@
 ## Path Integral Solver for Option Pricing
 
-This project implements a **C++ solver for derivative pricing** using the **path integral formulation** of stochastic processes.  
-The key idea is to simulate all possible paths of the underlying asset under the chosen **stochastic differential equation (SDE)** and compute the **discounted expected payoff**.
+This repository implements a **C++ framework for pricing financial derivatives** using the **path integral method**, a numerical technique inspired by physics.
+It works by simulating possible paths of the underlying asset under a chosen **stochastic differential equation (SDE)** and computing the **discounted expected payoff.**
+
+---
+### 1) Core Idea
+The aim is to compute the price of financial derivatives (e.g., options) by modeling the stochastic evolution of the underlying asset.
+The price is obtained as the **expected payoff at maturity**, discounted back to the present.
+
+Mathematically:
+- The asset price follows an SDE.
+- The derivative price is the expected value of the payoff under the **risk-neutral measure**, discounted at the risk-free rate.
 
 ---
 
-### 1) Core Equation
-
+### 2 Mathematical Formulation
+#### 2.1) Stochastic Differential Equation (SDE)
 Under the **risk-neutral measure**, an asset price $S_t$ follows:
 
 $$
@@ -19,7 +28,7 @@ $$
 
 ---
 
-### 2) Feynman–Kac Formula
+### 2.2) Feynman–Kac Formula
 
 For a payoff function $\text{Payoff}(S_T)$ at maturity $T$:
 
@@ -37,7 +46,9 @@ where $P[S(t)]$ is the path probability density derived from the SDE.
 
 ---
 
-### 3) Why This Solver is Flexible
+
+
+### 2) Why This Solver is Flexible
 
 In this implementation:
 
@@ -77,7 +88,25 @@ for each path p in N_paths:
 option_price = exp(-r * T) * payoff_sum / N_paths
 ```
 
-### 6) How to Adapt for Different Models
+### 6) Code Structure
+```
+include/
+  black_scholes.h         # Drift & volatility for Black–Scholes
+  path_integral_solver.h  # Core solver interface
+
+src/
+  black_scholes.cpp       # Implementation of Black–Scholes dynamics
+  path_integral_solver.cpp# Monte Carlo path integral solver
+  main.cpp                # Example usage
+
+examples/
+  ...                     # Example pricing configurations
+
+tests/
+  ...                     # Unit tests
+```
+
+### 7) Extending the Solver
 
 To switch models, only change:
 - mu(S, t) — the drift term
@@ -90,14 +119,14 @@ For example:
 - Barrier option → payoff set to 0 if barrier breached
 
 
-### 7) Advantages
+### 8) Advantages
 - Modular: swap in any SDE
 - Supports exotic payoffs
 - Numerical: works without closed-form solutions
 - Physics-inspired: path integrals allow a direct connection between finance and quantum mechanics-style methods
 
 
-### 8) References
+### 9) References
 - Black, F. & Scholes, M. (1973) The Pricing of Options and Corporate Liabilities. Journal of Political Economy.
 - Feynman, R. (1948) Space-Time Approach to Non-Relativistic Quantum Mechanics.
 - Wilmott, P., Howison, S., Dewynne, J. (1995) The Mathematics of Financial Derivatives
