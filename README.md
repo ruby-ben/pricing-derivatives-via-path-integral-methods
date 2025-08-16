@@ -26,7 +26,6 @@ $$
 - $\sigma(S_t, t)$ — **volatility term** (can be constant or state-dependent)
 - $W_t$ — standard Brownian motion
 
----
 
 ### 2.2) Feynman–Kac Formula
 
@@ -48,7 +47,7 @@ where $P[S(t)]$ is the path probability density derived from the SDE.
 
 
 
-### 2) Why This Solver is Flexible
+### 3) Why This Solver is Flexible
 
 In this implementation:
 
@@ -88,7 +87,23 @@ for each path p in N_paths:
 option_price = exp(-r * T) * payoff_sum / N_paths
 ```
 
-### 6) Code Structure
+---
+
+### 6) Extending the Solver
+
+To switch models, only change:
+- mu(S, t) — the drift term
+- sigma(S, t) — the volatility term
+- payoff(S) — the payoff at maturity
+
+For example:
+- Heston model → stochastic volatility
+- Merton model → jump term added to the SDE
+- Barrier option → payoff set to 0 if barrier breached
+
+---
+
+### 7) Code Structure
 ```
 include/
   black_scholes.h         # Drift & volatility for Black–Scholes
@@ -106,18 +121,7 @@ tests/
   ...                     # Unit tests
 ```
 
-### 7) Extending the Solver
-
-To switch models, only change:
-- mu(S, t) — the drift term
-- sigma(S, t) — the volatility term
-- payoff(S) — the payoff at maturity
-
-For example:
-- Heston model → stochastic volatility
-- Merton model → jump term added to the SDE
-- Barrier option → payoff set to 0 if barrier breached
-
+---
 
 ### 8) Advantages
 - Modular: swap in any SDE
@@ -125,6 +129,7 @@ For example:
 - Numerical: works without closed-form solutions
 - Physics-inspired: path integrals allow a direct connection between finance and quantum mechanics-style methods
 
+---
 
 ### 9) References
 - Black, F. & Scholes, M. (1973) The Pricing of Options and Corporate Liabilities. Journal of Political Economy.
