@@ -114,11 +114,6 @@ src/
   path_integral_solver.cpp# Monte Carlo path integral solver
   main.cpp                # Example usage
 
-examples/
-  ...                     # Example pricing configurations
-
-tests/
-  ...                     # Unit tests
 ```
 
 ---
