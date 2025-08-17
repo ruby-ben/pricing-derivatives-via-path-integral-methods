@@ -14,15 +14,5 @@ src/main.cpp
 ${COMMON_SOURCES} 
 ) 
 
-# Experiment runner executable 
-add_executable(run_experiments 
-src/run_experiments.cpp 
-src/experiment_runner.cpp
-${COMMON_SOURCES} 
-) 
-
 # Include directories 
 target_include_directories(option_pricer PRIVATE include) 
-target_include_directories(run_experiments PRIVATE include)
-
-

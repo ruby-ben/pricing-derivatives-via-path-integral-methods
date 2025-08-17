@@ -20,24 +20,9 @@ Run a single Black-Scholes simulation with specified parameters:
 ./option_pricer 0  # doesn't save to CSV
 ```
 
-### 2. Experiment Runner (Multiple Runs)
-Run multiple simulations with different path counts for convergence analysis:
-```bash
-./run_experiment
-```
-This will:
-- Run simulations with 10, 1000, and 100000 paths
-- Repeat each 3 times
-- Save results in ../data/experiment_*
-
-## Output Files
-- Individual simulation paths: `../data/BlackScholes_S[value]_K[value]_r[value]_sigma[value]_T[value]_steps[value]_paths[value].csv`
-- Experiment results: `../data/experiment_[size]_run[number].csv`
-
 ## Analyzing Results
 Use the Jupyter notebooks in the examples directory:
-1. `result_explore.ipynb` - For single simulation analysis
-2. `analyze_experiments.ipynb` - For convergence analysis
+1. `blackscholes_path_integral_error.ipynb` - For single simulation analysis
 
 Note: The CSV files will be saved in the 'data' directory at the project root level, 
 not in the build directory.
@@ -45,39 +30,6 @@ not in the build directory.
 
 next steps
 -------------
-- remove experiment part we can just sample random subset of the paths and achieve the same results
-- try this stuff with different sde, like asian options etc and other stuff 
-- make this stuff faster (by multi processessing hmm)
-- also do we only save ten paths hmm find out first
-- myabe add the ption to add the stuff within the single run fuciton lie ouptu more columns wihtin the csv for the 10, 20 and so path avegra ehmmm
-
-
-# my approahc with the moving average batching method to find the optimal amount of simulations to hit the plateu of performance
-
-
-# 1️⃣ Moving Average of Small Batches
-
-If you want a 10-path “fold” error:
-
-Let $S_i$ be the payoff of the $i$-th path.  
-
-Let $A_N$ be the cumulative sum of the first $N$ paths:
-
-$$
-A_N = S_1 + S_2 + \dots + S_N
-$$
-
-The average of the last 10 paths is then:
-
-$$
-\text{avg10}_N = \frac{A_N - A_{N-10}}{10}
-$$
-
-The relative error compared to the analytic solution is:
-
-$$
-\text{error10}_N = \frac{\text{avg10}_N - \text{analytic}}{\text{analytic}}
-= \frac{\text{avg10}_N}{\text{analytic}} - 1
-$$
-
-> Note: This approach only requires tracking cumulative sums, not all individual paths.
+- Apply the engine to different SDE
+- Experiment the relationship between standard error (and this error) of the average path and the analytical solution (if it exists) vs the number of simulations averaged.
+    - The best approach would be subtracting cummulative sums and ensembling to understand the error
