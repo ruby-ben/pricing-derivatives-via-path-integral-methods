@@ -1,4 +1,8 @@
 # Black-Scholes Path Integral Method - Usage Instructions
+## Setup
+```bash
+mkdir build && cd build
+```
 
 ## Building the Project
 From the build directory:
@@ -6,7 +10,7 @@ From the build directory:
 cmake ..
 make
 ```
-
+/
 ## Available Executables
 
 ### 1. Option Pricer (Single Run)
